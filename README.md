@@ -1,18 +1,18 @@
-
-
 # Sofia's Public Transport | NB: Project is WIP
 
-The aim of this project is to show (*almost*) all lines of Sofia's public ground transport using [Leaflet](https://www.npmjs.com/package/leaflet) library.
+The aim of this project is to show some lines of Sofia's public ground transport using [Leaflet](https://www.npmjs.com/package/leaflet) library.
 
 ## Tasks
 
 The main view of the app should consist of:
--   a list of all lines
--   a map with all lines topologies (stops and segments)
+
+- a list of all lines, whose data is available
+- a map with those lines topologies (stops and segments)
 
 Additionally, there should be a **filter** based on the line’s transport type (bus/tram/trolleybus) which hides (both in the list and the map) all deselected transport types.
 
 When clicking on a line either from the list or on the map, a new page for the selected line should open, consisting of 2 sections:
+
 - Map: the line’s routes should be displayed on a map
 - Table: the stops of each route should be displayed in a table
 
@@ -20,18 +20,21 @@ There must be **menu** allowing the **navigation** between the views.
 
 There must be a **drop-down** (or similar) allowing the switch between the routes.
 
-**API calls** will be *mocked* (data would be in json file).
+**API calls** will be _mocked_ (data would be in json file).
 
 ## Dependencies
 
 I will be using React with TypeScript, [Leaflet](https://www.npmjs.com/package/leaflet), [Redux](https://www.npmjs.com/package/redux) and more.
-  
 
-##  Available Scripts
+## Available Scripts
+
+Install all npm dependencies using:
+
+### `npm install`
 
 In the project directory, you can run:
 
-###  `npm start` 
+### `npm start`
 
 Runs the app in the development mode.
 

@@ -1,11 +1,21 @@
-import './App.css';
+import styled from 'styled-components';
 
-function App() {
+import Header from './components/Header';
+import Main from './components/Main';
+
+const App = (): JSX.Element => {
   return (
-    <div className="App">
-      <p>Empty app - starting point</p>
-    </div>
+    <Wrap>
+      <Header />
+      <Main />
+    </Wrap>
   );
-}
+};
 
 export default App;
+
+const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
