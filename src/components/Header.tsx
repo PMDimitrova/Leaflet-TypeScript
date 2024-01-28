@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Header = (): JSX.Element => {
   return (
     <Wrap>
-      <Heading size="7" weight="bold" color="cyan">
+      <Heading size="7" weight="bold" color="jade">
         Sofia's public transport system map
       </Heading>
     </Wrap>

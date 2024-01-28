@@ -1,9 +1,28 @@
+import { TabsTrigger, TabsRoot, TabsList, TabsContent } from '@radix-ui/themes';
 import styled from 'styled-components';
+
+import LineSpecific from './LineSpecific';
+import AllLines from './AllLines';
 
 const Main = () => {
   return (
     <Wrap>
-      <div>HOME</div>
+      <Inner>
+        <TabsRoot defaultValue="home">
+          <TabsList>
+            <TabsTrigger value="home">Home</TabsTrigger>
+            <TabsTrigger value="line">Line</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="home" background-color="white">
+            <AllLines />
+          </TabsContent>
+
+          <TabsContent value="line">
+            <LineSpecific />
+          </TabsContent>
+        </TabsRoot>
+      </Inner>
     </Wrap>
   );
 };
@@ -17,7 +36,16 @@ const Wrap = styled.div`
   align-items: center;
   padding: 32px 0;
   background-color: #f9f9f9;
-  /* opacity: 0.7; */
-  background-image: radial-gradient(#12a594 0.9px, #f9f9f9 0.9px);
+  background-image: radial-gradient(#29a383 0.9px, #f9f9f9 0.9px);
   background-size: 18px 18px;
+`;
+
+const Inner = styled.div`
+  width: 100%;
+  max-width: 900px;
+  padding: 0 16px;
+  background-color: #f9f9f9;
+  opacity: 80%;
+  border-radius: 16px;
+  border: 1px solid #868e8b;
 `;

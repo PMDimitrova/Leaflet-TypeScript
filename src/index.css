@@ -10,3 +10,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+/* height of the maps container */
+.leaflet-container {
+  height: 450px;
+  width: 90%;
+  border-radius: 2rem;
+}
