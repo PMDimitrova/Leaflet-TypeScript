@@ -14,22 +14,38 @@ import { MapContainer, TileLayer } from 'react-leaflet';
 import { CaretDownIcon } from '@radix-ui/react-icons';
 import styled from 'styled-components';
 import 'leaflet/dist/leaflet.css';
+import { useState } from 'react';
 
-const AllLines = () => {
+import { TransportTypes } from '../_constants/enums';
+
+const AllLines = ({ busesData = {}, trolleybusData = {}, tramsData = {} }) => {
+  const dropdownOptionsRaw = [...Object.values(TransportTypes), 'All Lines'];
+  const dropdownOptions = dropdownOptionsRaw.reverse();
+  const [transportTypeShowing, setTransportTypeShowing] = useState<String>(dropdownOptions[0]);
+
   return (
     <Wrap>
       <DropdownMenuRoot>
         <DropdownMenuTrigger>
           <Button>
-            All Lines
+            {transportTypeShowing}
             <CaretDownIcon />
           </Button>
         </DropdownMenuTrigger>
 
         <DropdownMenuContent>
-          <DropdownMenuItem>Buses</DropdownMenuItem>
-          <DropdownMenuItem>Trolleys</DropdownMenuItem>
-          <DropdownMenuItem>Trams</DropdownMenuItem>
+          {dropdownOptions.map(type => {
+            return (
+              <DropdownMenuItem
+                onClick={() => {
+                  setTransportTypeShowing(type);
+                }}
+                key={type}
+              >
+                {type}
+              </DropdownMenuItem>
+            );
+          })}
         </DropdownMenuContent>
       </DropdownMenuRoot>
 

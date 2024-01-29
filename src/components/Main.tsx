@@ -4,7 +4,20 @@ import styled from 'styled-components';
 import LineSpecific from './LineSpecific';
 import AllLines from './AllLines';
 
-const Main = () => {
+interface lineData {
+  line: string;
+  transportType: string;
+  routesAB: {
+    stops: object[];
+    segments: object[];
+  };
+  routeBA: {
+    stops: object[];
+    segments: object[];
+  };
+}
+
+const Main = ({ busesData = {}, trolleybusData = {}, tramsData = {} }) => {
   return (
     <Wrap>
       <Inner>
@@ -15,7 +28,7 @@ const Main = () => {
           </TabsList>
 
           <TabsContent value="home" background-color="white">
-            <AllLines />
+            <AllLines busesData={busesData} trolleybusData={trolleybusData} tramsData={tramsData} />
           </TabsContent>
 
           <TabsContent value="line">
