@@ -1,11 +1,9 @@
 import styled from 'styled-components';
-import { Provider } from 'react-redux';
 
 import { TransportTypesReverse } from './_constants/enums';
 import { rawData } from './_constants/data';
 import Header from './components/Header';
 import Main from './components/Main';
-import { store } from './state';
 
 export interface lineData {
   line: string;
@@ -78,12 +76,10 @@ const App = (): JSX.Element => {
   });
 
   return (
-    <Provider store={store}>
-      <Wrap>
-        <Header />
-        <Main busesData={busesData} trolleybusData={trolleybusData} tramsData={tramsData} />
-      </Wrap>
-    </Provider>
+    <Wrap>
+      <Header />
+      <Main busesData={busesData} trolleybusData={trolleybusData} tramsData={tramsData} />
+    </Wrap>
   );
 };
 

@@ -1,7 +1,10 @@
 import { TabsTrigger, TabsRoot, TabsList, TabsContent } from '@radix-ui/themes';
 import styled from 'styled-components';
+import { useEffect } from 'react';
 
+import { useAppDispatch } from '../state/hooks';
 import LineSpecific from './LineSpecific';
+import { actionCreators } from '../state';
 import AllLines from './AllLines';
 
 interface lineData {
@@ -18,6 +21,12 @@ interface lineData {
 }
 
 const Main = (props: { busesData: lineData[]; trolleybusData: lineData[]; tramsData: lineData[] }) => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(actionCreators.getAllLinesData());
+  }, []);
+
   return (
     <Wrap>
       <Inner>

@@ -19,6 +19,7 @@ import styled from 'styled-components';
 import 'leaflet/dist/leaflet.css';
 
 import { TransportTypes } from '../_constants/enums';
+import { useAppSelector } from '../state/hooks';
 import PinIcon from './PinIcon';
 
 const allLinesLabel = 'All Lines';
@@ -40,6 +41,8 @@ const AllLines = (props: { busesData: lineData[]; trolleybusData: lineData[]; tr
   const dropdownOptionsRaw = [...Object.values(TransportTypes), allLinesLabel];
   const dropdownOptions = dropdownOptionsRaw.reverse();
 
+  const allLinesData = useAppSelector(state => state.lines.linesData);
+  console.log('allLinesData: ', allLinesData);
   const [showTransportType, setShowTransportType] = useState<String>(dropdownOptions[0]);
   const busLinesNumbers: string[] = [];
   const trolleybusLinesNumbers: string[] = [];

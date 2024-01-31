@@ -1,5 +1,5 @@
-import { TransportTypesReverse } from '../enums';
-import { lineData } from '../../App';
+import { TransportTypesReverse } from '../_constants/enums';
+import { lineData } from '../App';
 
 export interface Vehicle {
   line: string;
