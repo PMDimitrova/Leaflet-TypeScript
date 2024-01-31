@@ -17,7 +17,7 @@ interface lineData {
   };
 }
 
-const Main = ({ busesData = {}, trolleybusData = {}, tramsData = {} }) => {
+const Main = (props: { busesData: lineData[]; trolleybusData: lineData[]; tramsData: lineData[] }) => {
   return (
     <Wrap>
       <Inner>
@@ -28,7 +28,7 @@ const Main = ({ busesData = {}, trolleybusData = {}, tramsData = {} }) => {
           </TabsList>
 
           <TabsContent value="home" background-color="white">
-            <AllLines busesData={busesData} trolleybusData={trolleybusData} tramsData={tramsData} />
+            <AllLines busesData={props.busesData} trolleybusData={props.trolleybusData} tramsData={props.tramsData} />
           </TabsContent>
 
           <TabsContent value="line">

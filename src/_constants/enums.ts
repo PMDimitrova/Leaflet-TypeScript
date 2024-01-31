@@ -4,6 +4,7 @@ export enum TransportTypes {
   TM = 'Tram',
 }
 
+//TODO: capitalize
 export enum TransportTypesReverse {
   Bus = 'A',
   Trolleybus = 'TB',

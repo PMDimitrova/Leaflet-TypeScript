@@ -1,11 +1,13 @@
 import styled from 'styled-components';
+import { Provider } from 'react-redux';
 
 import { TransportTypesReverse } from './_constants/enums';
 import { rawData } from './_constants/data';
 import Header from './components/Header';
 import Main from './components/Main';
+import { store } from './state';
 
-interface lineData {
+export interface lineData {
   line: string;
   transportType: string;
   routesAB: {
@@ -19,7 +21,7 @@ interface lineData {
 }
 
 const App = (): JSX.Element => {
-  //TODO: export the logic of refining the data in account handler & higher abstraction level & use redux <== no props drilling ffs!
+  //TODO: export the logic of refining the data in account handler & higher abstraction level & use redux <== no props ffs!
 
   const rawBuses = rawData.filter(vehicle => vehicle.routes[0].transportType === TransportTypesReverse.Bus);
   const busesData: lineData[] = rawBuses.map(bus => {
@@ -76,10 +78,12 @@ const App = (): JSX.Element => {
   });
 
   return (
-    <Wrap>
-      <Header />
-      <Main busesData={busesData} trolleybusData={trolleybusData} tramsData={tramsData} />
-    </Wrap>
+    <Provider store={store}>
+      <Wrap>
+        <Header />
+        <Main busesData={busesData} trolleybusData={trolleybusData} tramsData={tramsData} />
+      </Wrap>
+    </Provider>
   );
 };
 
