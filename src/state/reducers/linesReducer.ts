@@ -16,21 +16,46 @@ export interface LineData {
 
 interface LinesState {
   linesData: LineData[];
+  busesData: LineData[];
+  trolleybusesData: LineData[];
+  tramsData: LineData[];
   shouldShowAllLines: boolean;
+  specificLineData: LineData;
 }
 
 const INITIAL_STATE: LinesState = {
   linesData: [],
+  busesData: [],
+  trolleybusesData: [],
+  tramsData: [],
   shouldShowAllLines: true,
+  specificLineData: {
+    line: '',
+    transportType: '',
+    routesAB: {
+      stops: [],
+      segments: [],
+    },
+    routeBA: {
+      stops: [],
+      segments: [],
+    },
+  },
 };
 const linesReducer = (state: LinesState = INITIAL_STATE, action: Action): LinesState => {
   switch (action.type) {
     case ActionTypes.SHOW_DATA_FOR_ALL_LINES:
-      return { linesData: action.payload, shouldShowAllLines: true };
+      return { ...state, linesData: action.payload, shouldShowAllLines: true };
+    case ActionTypes.ADD_DATA_FOR_BUS_LINES:
+      return { ...state, busesData: action.payload };
+    case ActionTypes.ADD_DATA_FOR_TROLLEYBUS_LINES:
+      return { ...state, trolleybusesData: action.payload };
+    case ActionTypes.ADD_DATA_FOR_TRAM_LINES:
+      return { ...state, tramsData: action.payload };
+    case ActionTypes.SHOW_SPECIFIC_LINE:
+      return { ...state, shouldShowAllLines: false, specificLineData: action.payload };
     case ActionTypes.SHOULD_SHOW_ALL_LINES:
       return { ...state, shouldShowAllLines: true };
-    // case 'showSpecificLineAction':
-    //   return {shouldShowAllLines: false, }; or we're going to use action.payload?
     default:
       return state;
   }

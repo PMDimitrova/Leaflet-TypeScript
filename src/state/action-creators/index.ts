@@ -2,44 +2,60 @@ import { Dispatch } from 'redux';
 import axios from 'axios';
 
 import vehicleTypeTransformer from '../../utils/vehicleTypeTransformer';
-// import { TransportTypesReverse } from '../../_constants/enums';
+import { TransportTypesReverse } from '../../_constants/enums';
 import { ActionTypes } from '../action-types';
 import { Action } from '../actions';
 
 export const getAllLinesData = () => {
   return async (dispatch: Dispatch<Action>) => {
-    //mocked up API call
+    // Mocked up API call
     await axios
       .get('./rawData.json')
       .then(res => {
-        const transformedAllVehiclesTypesData = vehicleTypeTransformer(res.data.data);
+        const dataWeNeed = res.data.data;
+        const transformedAllVehiclesTypesData = vehicleTypeTransformer(dataWeNeed);
 
         dispatch({
           type: ActionTypes.SHOW_DATA_FOR_ALL_LINES,
           payload: transformedAllVehiclesTypesData,
         });
 
-        // // -----!!!!------ TODO: do separate actions for each vehicle type -----!!!!------
-        // const transformedBusData = vehicleTypeTransformer(
-        //   data.filter(
-        //     (vehicle: { routes: { transportType: TransportTypesReverse }[] }) =>
-        //       vehicle.routes[0].transportType === TransportTypesReverse.Bus
-        //   )
-        // );
+        // Separate actions for each vehicle type
+        const transformedBusData = vehicleTypeTransformer(
+          dataWeNeed.filter(
+            (vehicle: { routes: { transportType: TransportTypesReverse }[] }) =>
+              vehicle.routes[0].transportType === TransportTypesReverse.Bus
+          )
+        );
 
-        // const transformedTrolleybusData = vehicleTypeTransformer(
-        //   data.filter(
-        //     (vehicle: { routes: { transportType: TransportTypesReverse }[] }) =>
-        //       vehicle.routes[0].transportType === TransportTypesReverse.Trolleybus
-        //   )
-        // );
+        dispatch({
+          type: ActionTypes.ADD_DATA_FOR_BUS_LINES,
+          payload: transformedBusData,
+        });
 
-        // const transformedTramData = vehicleTypeTransformer(
-        //   data.filter(
-        //     (vehicle: { routes: { transportType: TransportTypesReverse }[] }) =>
-        //       vehicle.routes[0].transportType === TransportTypesReverse.Tram
-        //   )
-        // );
+        const transformedTrolleybusData = vehicleTypeTransformer(
+          dataWeNeed.filter(
+            (vehicle: { routes: { transportType: TransportTypesReverse }[] }) =>
+              vehicle.routes[0].transportType === TransportTypesReverse.Trolleybus
+          )
+        );
+
+        dispatch({
+          type: ActionTypes.ADD_DATA_FOR_TROLLEYBUS_LINES,
+          payload: transformedTrolleybusData,
+        });
+
+        const transformedTramData = vehicleTypeTransformer(
+          dataWeNeed.filter(
+            (vehicle: { routes: { transportType: TransportTypesReverse }[] }) =>
+              vehicle.routes[0].transportType === TransportTypesReverse.Tram
+          )
+        );
+
+        dispatch({
+          type: ActionTypes.ADD_DATA_FOR_TRAM_LINES,
+          payload: transformedTramData,
+        });
       })
       .catch(err => err);
   };

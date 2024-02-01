@@ -29,7 +29,7 @@ export interface Vehicle {
 }
 
 const vehicleTypeTransformer = (rawVehicleTypeData: Vehicle[]) => {
-  //slice should be from different point for different type A, TB, TM, because of the length of the abbreviation
+  // Slice function should be from different point for different type A, TB, TM, because of the length of the abbreviation
   const typeSliceStart = rawVehicleTypeData[0].routes[0].transportType === TransportTypesReverse.Bus ? 1 : 2;
 
   const vehicleData: lineData[] = rawVehicleTypeData.map(vehicleType => {
@@ -50,6 +50,7 @@ const vehicleTypeTransformer = (rawVehicleTypeData: Vehicle[]) => {
     return resultVehicle;
   });
 
+  //TODO: order the vehicles in ascending way by line number
   return vehicleData;
 };
 

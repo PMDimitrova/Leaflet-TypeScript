@@ -7,20 +7,7 @@ import LineSpecific from './LineSpecific';
 import { actionCreators } from '../state';
 import AllLines from './AllLines';
 
-interface lineData {
-  line: string;
-  transportType: string;
-  routesAB: {
-    stops: object[];
-    segments: object[];
-  };
-  routeBA: {
-    stops: object[];
-    segments: object[];
-  };
-}
-
-const Main = (props: { busesData: lineData[]; trolleybusData: lineData[]; tramsData: lineData[] }) => {
+const Main = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -37,7 +24,7 @@ const Main = (props: { busesData: lineData[]; trolleybusData: lineData[]; tramsD
           </TabsList>
 
           <TabsContent value="home" background-color="white">
-            <AllLines busesData={props.busesData} trolleybusData={props.trolleybusData} tramsData={props.tramsData} />
+            <AllLines />
           </TabsContent>
 
           <TabsContent value="line">

@@ -6,13 +6,33 @@ interface ShowDataForAllLinesAction {
   payload: LineData[];
 }
 
+interface AddDataForBusLinesAction {
+  type: ActionTypes.ADD_DATA_FOR_BUS_LINES;
+  payload: LineData[];
+}
+
+interface AddDataForTrolleybusLinesAction {
+  type: ActionTypes.ADD_DATA_FOR_TROLLEYBUS_LINES;
+  payload: LineData[];
+}
+
+interface AddDataForTramLinesAction {
+  type: ActionTypes.ADD_DATA_FOR_TRAM_LINES;
+  payload: LineData[];
+}
+interface ShowSpecificLineAction {
+  type: ActionTypes.SHOW_SPECIFIC_LINE;
+  payload: LineData;
+}
 interface ShouldShowAllLinesAction {
   type: ActionTypes.SHOULD_SHOW_ALL_LINES;
   payload: boolean;
 }
-interface ShowSpecificLineAction {
-  type: ActionTypes.SHOW_SPECIFIC_LINE;
-  payload: object; //TODO: would I need the number of the line or the whole data for the line
-}
 
-export type Action = ShouldShowAllLinesAction | ShowSpecificLineAction | ShowDataForAllLinesAction;
+export type Action =
+  | ShowDataForAllLinesAction
+  | AddDataForBusLinesAction
+  | AddDataForTrolleybusLinesAction
+  | AddDataForTramLinesAction
+  | ShowSpecificLineAction
+  | ShouldShowAllLinesAction;

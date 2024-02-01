@@ -18,6 +18,7 @@ import styled from 'styled-components';
 // import { polyline } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+import { LineData } from '../state/reducers/linesReducer';
 import { TransportTypes } from '../_constants/enums';
 import { useAppSelector } from '../state/hooks';
 import PinIcon from './PinIcon';
@@ -36,29 +37,30 @@ interface lineData {
   };
 }
 
-const AllLines = (props: { busesData: lineData[]; trolleybusData: lineData[]; tramsData: lineData[] }) => {
-  const { busesData, trolleybusData, tramsData } = props;
+const AllLines = () => {
   const dropdownOptionsRaw = [...Object.values(TransportTypes), allLinesLabel];
   const dropdownOptions = dropdownOptionsRaw.reverse();
 
-  const allLinesData = useAppSelector(state => state.lines.linesData);
-  console.log('allLinesData: ', allLinesData);
   const [showTransportType, setShowTransportType] = useState<String>(dropdownOptions[0]);
+  const busLinesData = useAppSelector(state => state.lines.busesData);
+  const trolleybusLinesData = useAppSelector(state => state.lines.trolleybusesData);
+  const tramLinesData = useAppSelector(state => state.lines.tramsData);
+
   const busLinesNumbers: string[] = [];
   const trolleybusLinesNumbers: string[] = [];
   const tramLinesNumbers: string[] = [];
 
   useEffect(() => {
-    if (busesData.length) {
-      busesData.map(bus => busLinesNumbers.push(bus.line));
+    if (busLinesData.length) {
+      busLinesData.map(bus => busLinesNumbers.push(bus.line));
     }
 
-    if (trolleybusData.length) {
-      trolleybusData.map(trolley => trolleybusLinesNumbers.push(trolley.line));
+    if (trolleybusLinesData.length) {
+      trolleybusLinesData.map(trolley => trolleybusLinesNumbers.push(trolley.line));
     }
 
-    if (tramsData.length) {
-      tramsData.map(tram => tramLinesNumbers.push(tram.line));
+    if (tramLinesData.length) {
+      tramLinesData.map(tram => tramLinesNumbers.push(tram.line));
     }
   }, []);
 
@@ -93,15 +95,15 @@ const AllLines = (props: { busesData: lineData[]; trolleybusData: lineData[]; tr
         <TableRoot>
           <TableBody>
             {(shouldShowAllLines || showTransportType === TransportTypes.A) && (
-              <VehicleTypeTableData vehicleType="Buses" lineNumbers={busLinesNumbers} />
+              <VehicleTypeTableData vehicleType="Buses" lineNumbers={busLinesData} />
             )}
 
             {(shouldShowAllLines || showTransportType === TransportTypes.TB) && (
-              <VehicleTypeTableData vehicleType="Trolleybuses" lineNumbers={trolleybusLinesNumbers} />
+              <VehicleTypeTableData vehicleType="Trolleybuses" lineNumbers={trolleybusLinesData} />
             )}
 
             {(shouldShowAllLines || showTransportType === TransportTypes.TM) && (
-              <VehicleTypeTableData vehicleType="Trams" lineNumbers={tramLinesNumbers} />
+              <VehicleTypeTableData vehicleType="Trams" lineNumbers={tramLinesData} />
             )}
           </TableBody>
         </TableRoot>
@@ -139,11 +141,7 @@ const AllLines = (props: { busesData: lineData[]; trolleybusData: lineData[]; tr
 };
 export default AllLines;
 
-const VehicleTypeTableData = (props: { vehicleType: string; lineNumbers: string[] }) => {
-  //TODO: until the redux is not set up, this will show NO data
-  // the issue here is that react takes the array e.g. busLinesNumbers and pass it to this component as empty array an renders it empty
-  // where as in reality it "magically" appears to have elements in it.
-
+const VehicleTypeTableData = (props: { vehicleType: string; lineNumbers: LineData[] }) => {
   return (
     <TableRow
       onClick={() =>
@@ -153,7 +151,8 @@ const VehicleTypeTableData = (props: { vehicleType: string; lineNumbers: string[
       <TableRowHeaderCell>
         <Text weight="bold">{props.vehicleType}</Text>
       </TableRowHeaderCell>
-      {props.lineNumbers.length && props.lineNumbers.map(line => <TableCell key={line}>{line}</TableCell>)}
+      {/* TODO: hover state */}
+      {props.lineNumbers.length && props.lineNumbers.map(line => <TableCell key={line.line}>{line.line} </TableCell>)}
     </TableRow>
   );
 };
