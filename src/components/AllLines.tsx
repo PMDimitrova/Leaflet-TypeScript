@@ -13,58 +13,41 @@ import {
 } from '@radix-ui/themes';
 import { MapContainer, Popup, TileLayer, Marker, Polyline } from 'react-leaflet';
 import { CaretDownIcon } from '@radix-ui/react-icons';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // import { polyline } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useState } from 'react';
 
+import { StopData } from '../utils/extractStopsCoordinatesPerLinePerRoute';
+import extractStopsToShow from '../utils/extractStopsToShow';
 import { LineData } from '../state/reducers/linesReducer';
 import { TransportTypes } from '../_constants/enums';
 import { useAppSelector } from '../state/hooks';
 import PinIcon from './PinIcon';
 
+type AllTransportTypesLabels = 'All Lines' | 'Bus' | 'Trolleybus' | 'Tram';
 const allLinesLabel = 'All Lines';
-interface lineData {
-  line: string;
-  transportType: string;
-  routesAB: {
-    stops: object[];
-    segments: object[];
-  };
-  routeBA: {
-    stops: object[];
-    segments: object[];
-  };
-}
 
 const AllLines = () => {
-  const dropdownOptionsRaw = [...Object.values(TransportTypes), allLinesLabel];
-  const dropdownOptions = dropdownOptionsRaw.reverse();
+  const dropdownOptionsRaw: AllTransportTypesLabels[] = [...Object.values(TransportTypes), allLinesLabel];
+  const dropdownOptions: AllTransportTypesLabels[] = dropdownOptionsRaw.reverse();
 
-  const [showTransportType, setShowTransportType] = useState<String>(dropdownOptions[0]);
+  const [showTransportType, setShowTransportType] = useState<'All Lines' | 'Bus' | 'Trolleybus' | 'Tram'>(
+    dropdownOptions[0]
+  );
   const busLinesData = useAppSelector(state => state.lines.busesData);
   const trolleybusLinesData = useAppSelector(state => state.lines.trolleybusesData);
   const tramLinesData = useAppSelector(state => state.lines.tramsData);
 
-  const busLinesNumbers: string[] = [];
-  const trolleybusLinesNumbers: string[] = [];
-  const tramLinesNumbers: string[] = [];
-
-  useEffect(() => {
-    if (busLinesData.length) {
-      busLinesData.map(bus => busLinesNumbers.push(bus.line));
-    }
-
-    if (trolleybusLinesData.length) {
-      trolleybusLinesData.map(trolley => trolleybusLinesNumbers.push(trolley.line));
-    }
-
-    if (tramLinesData.length) {
-      tramLinesData.map(tram => tramLinesNumbers.push(tram.line));
-    }
-  }, []);
-
   const shouldShowAllLines = showTransportType === allLinesLabel;
+
+  const stopsForVisualizing: StopData[] = extractStopsToShow({
+    vehicleType: showTransportType,
+    route: 'both ways',
+    busLineData: busLinesData,
+    trolleybusLineData: trolleybusLinesData,
+    tramLineData: tramLinesData,
+  });
 
   return (
     <Wrap>
@@ -118,7 +101,7 @@ const AllLines = () => {
             subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
           />
 
-          <Polyline //TODO:
+          {/* <Polyline //TODO:
             pathOptions={{ color: 'red', weight: 6 }}
             positions={[
               [42.689422292143256, 23.314679347354613],
@@ -127,12 +110,18 @@ const AllLines = () => {
             ]}
           >
             <Popup>TODO: обяснителна записка за линията</Popup>
-          </Polyline>
+          </Polyline> */}
 
           {/* TODO: <MarkerClusterGroup chunkedLoading iconCreateFunction={createClusterCustomIcon}> */}
-          <Marker position={[42.69160274360482, 23.31983964387614]} icon={PinIcon}>
-            <Popup>TODO: номер на спирката</Popup>
-          </Marker>
+          {stopsForVisualizing.map(stop => (
+            <Marker
+              position={[stop.location.lat, stop.location.lon]}
+              icon={PinIcon}
+              key={`${stop.stopId}-${stop.line}`}
+            >
+              <Popup>Спирка номер:{stop.stopId}</Popup>
+            </Marker>
+          ))}
           {/* </MarkerClusterGroup> */}
         </MapContainer>
       </MapWrap>
@@ -151,8 +140,10 @@ const VehicleTypeTableData = (props: { vehicleType: string; lineNumbers: LineDat
       <TableRowHeaderCell>
         <Text weight="bold">{props.vehicleType}</Text>
       </TableRowHeaderCell>
-      {/* TODO: hover state */}
-      {props.lineNumbers.length && props.lineNumbers.map(line => <TableCell key={line.line}>{line.line} </TableCell>)}
+      {/* TODO: UI hover state */}
+      {props.lineNumbers.length
+        ? props.lineNumbers.map(line => <TableCell key={line.line}>{line.line} </TableCell>)
+        : null}
     </TableRow>
   );
 };

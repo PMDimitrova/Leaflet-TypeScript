@@ -14,7 +14,7 @@ export interface Vehicle {
       name: string;
       averagePeople: number;
       dataPoints: number;
-      location: object;
+      location: { lat: number; lon: number };
     }[];
     segments: {
       id: string;
@@ -38,7 +38,7 @@ const vehicleTypeTransformer = (rawVehicleTypeData: Vehicle[]) => {
     const resultVehicle: lineData = {
       line: lineNum,
       transportType: vehicleType.routes[0].transportType,
-      routesAB: {
+      routeAB: {
         stops: vehicleType.routes[0].stops,
         segments: vehicleType.routes[0].segments,
       },

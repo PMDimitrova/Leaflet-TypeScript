@@ -4,13 +4,39 @@ import { Action } from '../actions';
 export interface LineData {
   line: string;
   transportType: string;
-  routesAB: {
-    stops: object[];
-    segments: object[];
+  routeAB: {
+    stops: {
+      id: string;
+      name: string;
+      averagePeople: number;
+      dataPoints: number;
+      location: { lat: number; lon: number };
+    }[];
+    segments: {
+      id: string;
+      name: string;
+      averagePeople: number;
+      averageCrowding: number;
+      dataPoints: number;
+      coordinates: {}[];
+    }[];
   };
   routeBA: {
-    stops: object[];
-    segments: object[];
+    stops: {
+      id: string;
+      name: string;
+      averagePeople: number;
+      dataPoints: number;
+      location: { lat: number; lon: number };
+    }[];
+    segments: {
+      id: string;
+      name: string;
+      averagePeople: number;
+      averageCrowding: number;
+      dataPoints: number;
+      coordinates: {}[];
+    }[];
   };
 }
 
@@ -32,7 +58,7 @@ const INITIAL_STATE: LinesState = {
   specificLineData: {
     line: '',
     transportType: '',
-    routesAB: {
+    routeAB: {
       stops: [],
       segments: [],
     },
