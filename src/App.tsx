@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
 
+import MainContainer from './components/MainContainer';
 import { useAppDispatch } from './state/hooks';
 import Header from './components/Header';
 import { actionCreators } from './state';
-import Main from './components/Main';
 
 const App = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -15,7 +15,7 @@ const App = (): JSX.Element => {
   return (
     <Wrap>
       <Header />
-      <Main />
+      <MainContainer />
     </Wrap>
   );
 };

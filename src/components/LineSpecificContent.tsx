@@ -2,7 +2,7 @@ import { RadioGroupRoot, Flex, Text, RadioGroupItem, Separator } from '@radix-ui
 import { MapContainer, TileLayer } from 'react-leaflet';
 import styled from 'styled-components';
 
-const LineSpecific = () => {
+const LineSpecificContent = () => {
   return (
     <Wrap>
       <Inner>
@@ -46,7 +46,7 @@ const LineSpecific = () => {
   );
 };
 
-export default LineSpecific;
+export default LineSpecificContent;
 const Wrap = styled.div`
   padding: 16px 0;
 `;

@@ -28,7 +28,7 @@ import PinIcon from './PinIcon';
 type AllTransportTypesLabels = 'All Lines' | 'Bus' | 'Trolleybus' | 'Tram';
 const allLinesLabel = 'All Lines';
 
-const AllLines = () => {
+const HomeTabContent = () => {
   const dropdownOptionsRaw: AllTransportTypesLabels[] = [...Object.values(TransportTypes), allLinesLabel];
   const dropdownOptions: AllTransportTypesLabels[] = dropdownOptionsRaw.reverse();
 
@@ -129,7 +129,7 @@ const AllLines = () => {
     </Wrap>
   );
 };
-export default AllLines;
+export default HomeTabContent;
 
 const VehicleTypeTableData = (props: { vehicleType: string; lineNumbers: LineData[] }) => {
   return (

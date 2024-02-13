@@ -1,10 +1,10 @@
 import { TabsTrigger, TabsRoot, TabsList, TabsContent } from '@radix-ui/themes';
 import styled from 'styled-components';
 
-import LineSpecific from './LineSpecific';
-import AllLines from './AllLines';
+import LineSpecificContent from './LineSpecificContent';
+import HomeTabContent from './HomeTabContent';
 
-const Main = () => {
+const MainContainer = () => {
   return (
     <Wrap>
       <Inner>
@@ -15,11 +15,11 @@ const Main = () => {
           </TabsList>
 
           <TabsContent value="home" background-color="white">
-            <AllLines />
+            <HomeTabContent />
           </TabsContent>
 
           <TabsContent value="line">
-            <LineSpecific />
+            <LineSpecificContent />
           </TabsContent>
         </TabsRoot>
       </Inner>
@@ -27,7 +27,7 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default MainContainer;
 
 const Wrap = styled.div`
   display: flex;
