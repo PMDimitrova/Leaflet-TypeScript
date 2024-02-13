@@ -1,4 +1,4 @@
-import { LineData } from '../state/reducers/linesReducer';
+import { LineData } from '../_constants/interfaces';
 
 export interface StopData {
   stopId: string;

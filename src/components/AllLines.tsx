@@ -20,8 +20,8 @@ import { useState } from 'react';
 
 import { StopData } from '../utils/extractStopsCoordinatesPerLinePerRoute';
 import extractStopsToShow from '../utils/extractStopsToShow';
-import { LineData } from '../state/reducers/linesReducer';
 import { TransportTypes } from '../_constants/enums';
+import { LineData } from '../_constants/interfaces';
 import { useAppSelector } from '../state/hooks';
 import PinIcon from './PinIcon';
 
@@ -41,6 +41,7 @@ const AllLines = () => {
 
   const shouldShowAllLines = showTransportType === allLinesLabel;
 
+  // TODO: extract this on higher level -> We do not need this calculated on every rerender (!!), just on api call or change of the dropdown
   const stopsForVisualizing: StopData[] = extractStopsToShow({
     vehicleType: showTransportType,
     route: 'both ways',
@@ -119,7 +120,7 @@ const AllLines = () => {
               icon={PinIcon}
               key={`${stop.stopId}-${stop.line}`}
             >
-              <Popup>Спирка номер:{stop.stopId}</Popup>
+              <Popup>Stop number: {stop.stopId}</Popup>
             </Marker>
           ))}
           {/* </MarkerClusterGroup> */}
@@ -134,6 +135,7 @@ const VehicleTypeTableData = (props: { vehicleType: string; lineNumbers: LineDat
   return (
     <TableRow
       onClick={() =>
+        // TODO:
         console.log('later here would go the functionality to show map with single line in the second tab')
       }
     >

@@ -1,7 +1,7 @@
 import extractStopsCoordinatesPerLinePerRoute from './extractStopsCoordinatesPerLinePerRoute';
 import { StopData } from './extractStopsCoordinatesPerLinePerRoute';
-import { LineData } from '../state/reducers/linesReducer';
 import { TransportTypes } from '../_constants/enums';
+import { LineData } from '../_constants/interfaces';
 
 const extractStopsToShow = (props: {
   vehicleType: 'All Lines' | 'Bus' | 'Trolleybus' | 'Tram';
@@ -11,6 +11,7 @@ const extractStopsToShow = (props: {
   tramLineData: LineData[] | null;
 }) => {
   const { vehicleType, route, busLineData, trolleybusLineData, tramLineData } = props;
+  console.log('busLineData: ', busLineData);
   const stopsForVisualizing: StopData[] = [];
 
   if (vehicleType === 'All Lines') {
@@ -20,6 +21,7 @@ const extractStopsToShow = (props: {
       stopsForVisualizing.push(...busResAB);
       const busResBA = extractStopsCoordinatesPerLinePerRoute({ lineData: busLineData, route: 'routeBA' });
       stopsForVisualizing.push(...busResBA);
+
       //Trolleybus data
       const trolleybusResAB = extractStopsCoordinatesPerLinePerRoute({
         lineData: trolleybusLineData,
@@ -31,6 +33,7 @@ const extractStopsToShow = (props: {
         route: 'routeBA',
       });
       stopsForVisualizing.push(...trolleybusResBA);
+
       //Tram data
       const tramResAB = extractStopsCoordinatesPerLinePerRoute({ lineData: tramLineData, route: 'routeAB' });
       stopsForVisualizing.push(...tramResAB);

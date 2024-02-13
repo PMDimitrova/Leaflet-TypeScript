@@ -1,5 +1,5 @@
 import { TransportTypesReverse } from '../_constants/enums';
-import { lineData } from '../App';
+import { LineData } from '../_constants/interfaces';
 
 export interface Vehicle {
   line: string;
@@ -32,10 +32,10 @@ const vehicleTypeTransformer = (rawVehicleTypeData: Vehicle[]) => {
   // Slice function should be from different point for different type A, TB, TM, because of the length of the abbreviation
   const typeSliceStart = rawVehicleTypeData[0].routes[0].transportType === TransportTypesReverse.Bus ? 1 : 2;
 
-  const vehicleData: lineData[] = rawVehicleTypeData.map(vehicleType => {
+  const vehicleData: LineData[] = rawVehicleTypeData.map(vehicleType => {
     const lineNum = vehicleType.line.slice(typeSliceStart);
 
-    const resultVehicle: lineData = {
+    const resultVehicle: LineData = {
       line: lineNum,
       transportType: vehicleType.routes[0].transportType,
       routeAB: {

@@ -1,4 +1,4 @@
-import { LineData } from '../state/reducers/linesReducer';
+import { LineData } from '../_constants/interfaces';
 
 const extractLineNumbers = (props: { lineData: LineData[] }) => {
   const { lineData } = props;

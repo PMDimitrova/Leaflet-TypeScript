@@ -1,44 +1,6 @@
+import { LineData } from '../../_constants/interfaces';
 import { ActionTypes } from '../action-types';
 import { Action } from '../actions';
-
-export interface LineData {
-  line: string;
-  transportType: string;
-  routeAB: {
-    stops: {
-      id: string;
-      name: string;
-      averagePeople: number;
-      dataPoints: number;
-      location: { lat: number; lon: number };
-    }[];
-    segments: {
-      id: string;
-      name: string;
-      averagePeople: number;
-      averageCrowding: number;
-      dataPoints: number;
-      coordinates: {}[];
-    }[];
-  };
-  routeBA: {
-    stops: {
-      id: string;
-      name: string;
-      averagePeople: number;
-      dataPoints: number;
-      location: { lat: number; lon: number };
-    }[];
-    segments: {
-      id: string;
-      name: string;
-      averagePeople: number;
-      averageCrowding: number;
-      dataPoints: number;
-      coordinates: {}[];
-    }[];
-  };
-}
 
 interface LinesState {
   linesData: LineData[];

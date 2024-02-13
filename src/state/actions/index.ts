@@ -1,4 +1,4 @@
-import { LineData } from '../reducers/linesReducer';
+import { LineData } from '../../_constants/interfaces';
 import { ActionTypes } from '../action-types';
 
 interface ShowDataForAllLinesAction {
